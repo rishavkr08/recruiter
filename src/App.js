@@ -1,13 +1,9 @@
-import Header from "./components/Header";
-import List from "./job/list";
+import Job from "./job";
 
 function App() {
 
   return (
-    <div className="h-screen w-screen">
-      <Header />
-      <List />
-    </div>
+    <Job />
   );
 }
 
