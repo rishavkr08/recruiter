@@ -1,6 +1,10 @@
+import Header from "./components/Header";
+
 function App() {
+
   return (
-    <div className="App">
+    <div className="bg-gray-50 flex h-screen w-screen">
+      <Header />
     </div>
   );
 }
