@@ -1,8 +1,9 @@
+import { useState } from "react";
+
 const TextField = (props) => {
   const {
     data,
     disabled,
-    error,
     name,
     label,
     placeholder,
@@ -11,6 +12,8 @@ const TextField = (props) => {
     type = "text",
     wrapperClasses,
   } = props;
+
+  const [showError, setShowError] = useState(false);
 
   const changeDateHandler = (event) => {
     setData(event.target.value, name);
@@ -30,10 +33,13 @@ const TextField = (props) => {
         placeholder={placeholder}
         type={type}
         value={data}
+        onBlur={(e) => {
+          if (!e.target.value && required) setShowError(true);
+        }}
         required
       />
-      {error && (
-        <div className="flex text-error text-xs font-light mb-1">{error}</div>
+      {showError && (
+        <div className="flex text-error text-xs font-light mb-1">Required</div>
       )}
     </div>
   );
