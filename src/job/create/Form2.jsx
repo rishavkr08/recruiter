@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import TextField from "../../components/TextField";
 import RadioGroup from "../../components/RadioGroup";
 import jobsApi from "../../apis/job";
+import { FORM_DATA } from "../../constants/job";
 
 const Form2 = (props) => {
-  const { formData, setFormData, setOpen } = props;
+  const { formData, setFormData, setOpen, jobList, setJobList, setFormIndex } = props;
   const [isLoading, setIsLoading] = useState(false);
   const [applyTypeOptions, setApplyTypeOptions] = useState([
     {
@@ -33,7 +34,10 @@ const Form2 = (props) => {
   const saveData = async () => {
     try {
       setIsLoading(true);
-      await jobsApi.create(formData);
+      const { data } = await jobsApi.create(formData);
+      setFormIndex(1);
+      setJobList([...jobList, data]);
+      setFormData(FORM_DATA)
       setOpen(false);
     } catch (e) {
     } finally {
@@ -56,6 +60,7 @@ const Form2 = (props) => {
               name="minExperience"
               placeholder="Minimum"
               setData={setData}
+              type="number"
               wrapperClasses="mb-6 mr-6"
             />
           </div>
@@ -65,6 +70,7 @@ const Form2 = (props) => {
               name="maxExperience"
               placeholder="Maximum"
               setData={setData}
+              type="number"
               wrapperClasses="mb-6 mt-5"
             />
           </div>
@@ -77,6 +83,7 @@ const Form2 = (props) => {
               name="minSalary"
               placeholder="Minimum"
               setData={setData}
+              type="number"
               wrapperClasses="mb-6 mr-6"
             />
           </div>
@@ -86,6 +93,7 @@ const Form2 = (props) => {
               name="maxSalary"
               placeholder="Maximum"
               setData={setData}
+              type="number"
               wrapperClasses="mb-6 mt-5"
             />
           </div>

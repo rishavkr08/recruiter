@@ -1,10 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import List from "./list";
 import CreateJob from "./create";
+import jobsApi from "../apis/job";
 
 const Job = () => {
   const [open, setOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [jobList, setJobList] = useState([]);
+
+  const getJobs = async () => {
+    try {
+      setIsLoading(true);
+      const { data } = await jobsApi.fetch();
+      setJobList(data);
+    } catch (e) {
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getJobs();
+  }, []);
+
   return (
     <div className="h-screen w-screen bg-gray-100">
       <div className="flex items-center justify-between bg-white w-full h-min p-4">
@@ -20,8 +39,16 @@ const Job = () => {
           Create Job
         </button>
       </div>
-      <CreateJob open={open} setOpen={setOpen} />
-      <List modalOpen={open} />
+      <CreateJob open={open} setOpen={setOpen} jobList={jobList} setJobList={setJobList} />
+      {isLoading ? (
+        <div className="flex items-center justify-center text-3xl h-full w-full">
+          Loading...
+        </div>
+      ) : (
+        <div className="flex bg-gray-100 w-full">
+          <List isLoading={isLoading} jobList={jobList} setJobList={setJobList} />
+        </div>
+      )}
     </div>
   );
 };
