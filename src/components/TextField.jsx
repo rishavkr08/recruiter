@@ -8,12 +8,13 @@ const TextField = (props) => {
     placeholder,
     required,
     setData,
+    type = "text",
     wrapperClasses,
   } = props;
 
   const changeDateHandler = (event) => {
-    setData(event.target.value, name)
-  }
+    setData(event.target.value, name);
+  };
 
   return (
     <div className={"flex flex-col " + wrapperClasses}>
@@ -27,7 +28,7 @@ const TextField = (props) => {
         name={name}
         onChange={changeDateHandler}
         placeholder={placeholder}
-        type="text"
+        type={type}
         value={data}
         required
       />
