@@ -33,7 +33,6 @@ const Form2 = (props) => {
   );
 
   useEffect(() => {
-    console.log("applyTypeOptions - ", applyTypeOptions);
     setData(applyTypeOptions.find((item) => item.checked)?.value, "applyType");
   }, [applyTypeOptions, setData]);
 
@@ -41,12 +40,12 @@ const Form2 = (props) => {
     try {
       setIsLoading(true);
       const { data } = await jobsApi.create(formData);
-      setFormIndex(1);
       setJobList([...jobList, data]);
-      setFormData(FORM_DATA);
-      setOpen(false);
     } catch (e) {
     } finally {
+      setOpen(false);
+      setFormIndex(1);
+      setFormData(FORM_DATA);
       setIsLoading(false);
     }
   };
