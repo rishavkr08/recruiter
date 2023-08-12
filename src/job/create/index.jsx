@@ -11,6 +11,7 @@ const CreateJob = (props) => {
 
   function onClose() {
     setOpen(false);
+    setFormData(FORM_DATA);
     setTimeout(() => {
       setFormIndex(1);
     }, 500);
