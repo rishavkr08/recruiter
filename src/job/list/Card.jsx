@@ -2,6 +2,8 @@ import { TrashIcon } from "@heroicons/react/24/outline";
 import Netflix from "../../assets/Netflix.png";
 import jobsApi from "../../apis/job";
 import { formatExperienceRange, formatSalaryRange } from "../../formatters/job";
+import { useState } from "react";
+import Loader from "../../components/Loader";
 
 const Card = (props) => {
   const {
@@ -21,18 +23,24 @@ const Card = (props) => {
     totalEmployee,
   } = props;
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const deleteJob = async () => {
     try {
+      setIsLoading(true);
       const response = await jobsApi.destroy(id);
       if (response.status === 200) {
         setJobList([...jobList.filter((job) => job.id !== id)]);
       }
-    } catch (e) {}
+    } catch (e) {
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <div
-      className="flex border border-gray-lighter bg-white rounded-lg px-6 py-4 min-h-80"
+      className={"flex border border-gray-lighter bg-white rounded-lg px-6 py-4 min-h-80 " + (isLoading && "opacity-50 cursor-wait")}
       key={id}
     >
       <div>
@@ -83,7 +91,11 @@ const Card = (props) => {
         </div>
       </div>
       <div className="flex bg-red- justify-end w-1/12 cursor-pointer">
-        <TrashIcon className="h-4 w-4 text-error" onClick={deleteJob} />
+        {isLoading ? (
+          <Loader classNames="border-error" />
+        ) : (
+          <TrashIcon className="h-4 w-4 text-error" onClick={deleteJob} />
+        )}
       </div>
     </div>
   );

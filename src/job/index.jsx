@@ -3,6 +3,7 @@ import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import List from "./list";
 import CreateJob from "./create";
 import jobsApi from "../apis/job";
+import Loader from "../components/Loader";
 
 const Job = () => {
   const [open, setOpen] = useState(false);
@@ -46,10 +47,10 @@ const Job = () => {
         setJobList={setJobList}
       />
       {isLoading ? (
-        <div className="flex items-center justify-center text-3xl h-full w-full">
-          Loading...
+        <div className="flex items-center justify-center h-full">
+          <Loader classNames="!h-16 !w-16" />
         </div>
-      ) : (
+      ) : jobList.length !== 1 ? (
         <div className="flex bg-gray-100 w-full">
           <List
             isLoading={isLoading}
@@ -57,6 +58,8 @@ const Job = () => {
             setJobList={setJobList}
           />
         </div>
+      ) : (
+        <div className="flex items-center justify-center text-3xl mt-80">Not Job Found</div>
       )}
     </div>
   );
