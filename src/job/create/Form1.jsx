@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import TextField from "../../components/TextField";
 
 const Form1 = (props) => {
   const { setFormIndex, formData, setFormData } = props;
   const [disabled, setDisabled] = useState(true);
 
-  const setData = (data, name) => {
-    let tempFormData = { ...formData };
-    tempFormData[name] = data;
-    setFormData(tempFormData);
-  };
+  const setData = useCallback(
+    (data, name) => {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: data,
+      }));
+    },
+    [setFormData]
+  );
 
   useEffect(() => {
     const { title, companyName, industry } = formData;

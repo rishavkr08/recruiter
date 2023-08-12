@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import TextField from "../../components/TextField";
 import RadioGroup from "../../components/RadioGroup";
 import jobsApi from "../../apis/job";
@@ -22,16 +22,20 @@ const Form2 = (props) => {
     },
   ]);
 
-  const setData = (data, name) => {
-    let tempFormData = { ...formData };
-    tempFormData[name] = data;
-    setFormData(tempFormData);
-  };
+  const setData = useCallback(
+    (data, name) => {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: data,
+      }));
+    },
+    [setFormData]
+  );
 
   useEffect(() => {
     console.log("applyTypeOptions - ", applyTypeOptions);
     setData(applyTypeOptions.find((item) => item.checked)?.value, "applyType");
-  }, [applyTypeOptions]);
+  }, [applyTypeOptions, setData]);
 
   const saveData = async () => {
     try {
@@ -124,7 +128,13 @@ const Form2 = (props) => {
           onClick={saveData}
           disabled={isLoading}
         >
-          {isLoading ? <><Loader classNames="border-white mr-1" /> Saving...</> : "Save"}
+          {isLoading ? (
+            <>
+              <Loader classNames="border-white mr-1" /> Saving...
+            </>
+          ) : (
+            "Save"
+          )}
         </button>
       </div>
     </React.Fragment>
