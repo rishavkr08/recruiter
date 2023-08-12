@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import TextField from "../../components/TextField";
 
-const Form1 = (props) => {
+const Step1 = (props) => {
   const { setFormIndex, formData, setFormData } = props;
   const [disabled, setDisabled] = useState(true);
 
@@ -91,4 +91,4 @@ const Form1 = (props) => {
   );
 };
 
-export default Form1;
+export default Step1;

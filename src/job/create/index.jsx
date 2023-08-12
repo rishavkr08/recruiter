@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Modal from "../../components/Modal";
-import Form1 from "./Form1";
-import Form2 from "./Form2";
 import { FORM_DATA } from "../../constants/job";
+import Step1 from "../forms/Step1";
+import Step2 from "../forms/Step2";
 
 const CreateJob = (props) => {
   const { open, setOpen, jobList, setJobList } = props;
@@ -19,13 +19,13 @@ const CreateJob = (props) => {
   return (
     <Modal open={open} onClose={onClose}>
       {formIndex === 1 ? (
-        <Form1
+        <Step1
           setFormIndex={setFormIndex}
           formData={formData}
           setFormData={setFormData}
         />
       ) : (
-        <Form2
+        <Step2
           setFormIndex={setFormIndex}
           formData={formData}
           setFormData={setFormData}
