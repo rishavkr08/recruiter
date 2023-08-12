@@ -17,6 +17,7 @@ const TextField = (props) => {
 
   const changeDateHandler = (event) => {
     setData(event.target.value, name);
+    setShowError(!event.target.value && required);
   };
 
   return (
@@ -34,7 +35,7 @@ const TextField = (props) => {
         type={type}
         value={data}
         onBlur={(e) => {
-          if (!e.target.value && required) setShowError(true);
+          setShowError(!e.target.value && required);
         }}
         required
       />
