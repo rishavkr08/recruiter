@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
-import List from "./list";
-import CreateJob from "./create";
+import CreateJob from "./Create";
 import jobsApi from "../apis/job";
+import List from "./list";
 import Loader from "../components/Loader";
 
 const Job = () => {
@@ -16,6 +16,7 @@ const Job = () => {
       const { data } = await jobsApi.fetch();
       setJobList(data);
     } catch (e) {
+      console.error("An error occurred:", e);
     } finally {
       setIsLoading(false);
     }
@@ -59,7 +60,9 @@ const Job = () => {
           />
         </div>
       ) : (
-        <div className="flex items-center justify-center text-3xl mt-80">No Job Found</div>
+        <div className="flex items-center justify-center text-3xl mt-80">
+          No Job Found
+        </div>
       )}
     </div>
   );
