@@ -2,7 +2,17 @@ import React from "react";
 import TextField from "../../components/TextField";
 
 const Form1 = (props) => {
-  const { setFormIndex } = props;
+  const { setFormIndex, formData, setFormData } = props;
+
+  const setData = (data, name) => {
+    let tempFormData = { ...formData };
+    tempFormData[name] = data;
+    setFormData(tempFormData);
+  };
+
+  const nextStep = () => {
+    setFormIndex(2);
+  };
   return (
     <React.Fragment>
       <div className="m-8">
@@ -12,19 +22,28 @@ const Form1 = (props) => {
         </div>
         <TextField
           label="Job title"
+          data={formData.title}
+          name="title"
           placeholder="ex. UX UI Designer"
+          setData={setData}
           wrapperClasses="mb-6"
           required
         />
         <TextField
           label="Company name"
+          data={formData.companyName}
+          name="companyName"
           placeholder="ex. Google"
+          setData={setData}
           wrapperClasses="mb-6"
           required
         />
         <TextField
           label="Industry"
+          data={formData.industry}
+          name="industry"
           placeholder="ex. Information Technology"
+          setData={setData}
           wrapperClasses="mb-6"
           required
         />
@@ -32,14 +51,20 @@ const Form1 = (props) => {
           <div className="flex-1">
             <TextField
               label="Location"
+              data={formData.location}
+              name="location"
               placeholder="ex. Chennai"
+              setData={setData}
               wrapperClasses="mb-6 mr-6"
             />
           </div>
           <div className="flex-1">
             <TextField
               label="Remote type"
+              data={formData.remoteType}
+              name="remoteType"
               placeholder="ex. In-office"
+              setData={setData}
               wrapperClasses="mb-6"
             />
           </div>
@@ -49,7 +74,7 @@ const Form1 = (props) => {
         <button
           type="button"
           className="inline-flex w-full justify-center rounded-md bg-primary px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto"
-          onClick={() => setFormIndex(2)}
+          onClick={nextStep}
         >
           Next
         </button>

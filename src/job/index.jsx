@@ -6,7 +6,7 @@ import CreateJob from "./create";
 const Job = () => {
   const [open, setOpen] = useState(false);
   return (
-    <div className="h-screen w-screen">
+    <div className="h-screen w-screen bg-gray-100">
       <div className="flex items-center justify-between bg-white w-full h-min p-4">
         <div className="text-primary text-lg font-bold">Recruiter</div>
         <button
@@ -21,7 +21,7 @@ const Job = () => {
         </button>
       </div>
       <CreateJob open={open} setOpen={setOpen} />
-      <List />
+      <List modalOpen={open} />
     </div>
   );
 };

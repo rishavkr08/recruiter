@@ -6,6 +6,10 @@ const fetch = () => {
   return axios.get(BASE_URL);
 };
 
-const jobsApi = { fetch };
+const create = (params) => {
+  return axios.post(BASE_URL, params);
+};
+
+const jobsApi = { fetch, create };
 
 export default jobsApi;
