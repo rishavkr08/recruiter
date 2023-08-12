@@ -2,7 +2,7 @@ import { Fragment, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 
 const Modal = (props) => {
-  const { open, setOpen, children } = props;
+  const { open, onClose, children } = props;
   const cancelButtonRef = useRef(null);
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -10,7 +10,7 @@ const Modal = (props) => {
         as="div"
         className="relative z-10"
         initialFocus={cancelButtonRef}
-        onClose={setOpen}
+        onClose={onClose}
       >
         <Transition.Child
           as={Fragment}

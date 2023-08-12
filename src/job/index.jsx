@@ -50,7 +50,7 @@ const Job = () => {
         <div className="flex items-center justify-center h-full">
           <Loader classNames="!h-16 !w-16" />
         </div>
-      ) : jobList.length !== 1 ? (
+      ) : jobList.length !== 0 ? (
         <div className="flex bg-gray-100 w-full">
           <List
             isLoading={isLoading}
@@ -59,7 +59,7 @@ const Job = () => {
           />
         </div>
       ) : (
-        <div className="flex items-center justify-center text-3xl mt-80">Not Job Found</div>
+        <div className="flex items-center justify-center text-3xl mt-80">No Job Found</div>
       )}
     </div>
   );

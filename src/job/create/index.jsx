@@ -9,8 +9,14 @@ const CreateJob = (props) => {
   const [formIndex, setFormIndex] = useState(1);
   const [formData, setFormData] = useState(FORM_DATA);
 
+  function onClose() {
+    setOpen(false);
+    setTimeout(() => {
+      setFormIndex(1);
+    }, 500);
+  }
   return (
-    <Modal open={open} setOpen={setOpen}>
+    <Modal open={open} onClose={onClose}>
       {formIndex === 1 ? (
         <Form1
           setFormIndex={setFormIndex}
