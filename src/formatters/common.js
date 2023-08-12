@@ -4,10 +4,10 @@ export function formatNumberToRupees(number) {
   }
 
   number = parseInt(number);
-  const formattedNumber = number.toLocaleString('en-IN', {
+  const formattedNumber = number.toLocaleString("en-IN", {
     maximumFractionDigits: 0,
-    style: 'currency',
-    currency: 'INR',
+    style: "currency",
+    currency: "INR",
   });
 
   return formattedNumber;

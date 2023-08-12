@@ -39,14 +39,23 @@ const Job = () => {
           Create Job
         </button>
       </div>
-      <CreateJob open={open} setOpen={setOpen} jobList={jobList} setJobList={setJobList} />
+      <CreateJob
+        open={open}
+        setOpen={setOpen}
+        jobList={jobList}
+        setJobList={setJobList}
+      />
       {isLoading ? (
         <div className="flex items-center justify-center text-3xl h-full w-full">
           Loading...
         </div>
       ) : (
         <div className="flex bg-gray-100 w-full">
-          <List isLoading={isLoading} jobList={jobList} setJobList={setJobList} />
+          <List
+            isLoading={isLoading}
+            jobList={jobList}
+            setJobList={setJobList}
+          />
         </div>
       )}
     </div>

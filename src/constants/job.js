@@ -13,4 +13,3 @@ export const FORM_DATA = {
   title: "",
   totalEmployee: "",
 };
-

@@ -5,7 +5,8 @@ import jobsApi from "../../apis/job";
 import { FORM_DATA } from "../../constants/job";
 
 const Form2 = (props) => {
-  const { formData, setFormData, setOpen, jobList, setJobList, setFormIndex } = props;
+  const { formData, setFormData, setOpen, jobList, setJobList, setFormIndex } =
+    props;
   const [isLoading, setIsLoading] = useState(false);
   const [applyTypeOptions, setApplyTypeOptions] = useState([
     {
@@ -37,7 +38,7 @@ const Form2 = (props) => {
       const { data } = await jobsApi.create(formData);
       setFormIndex(1);
       setJobList([...jobList, data]);
-      setFormData(FORM_DATA)
+      setFormData(FORM_DATA);
       setOpen(false);
     } catch (e) {
     } finally {
