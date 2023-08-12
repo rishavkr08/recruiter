@@ -10,6 +10,10 @@ const create = (params) => {
   return axios.post(BASE_URL, params);
 };
 
-const jobsApi = { fetch, create };
+const destroy = (id) => {
+  return axios.delete(`${BASE_URL}/${id}`);
+};
+
+const jobsApi = { fetch, create, destroy };
 
 export default jobsApi;

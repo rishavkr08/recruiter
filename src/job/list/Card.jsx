@@ -1,28 +1,44 @@
+import { TrashIcon } from "@heroicons/react/24/outline";
 import Netflix from "../../assets/Netflix.png";
+import jobsApi from "../../apis/job";
+
 const Card = (props) => {
   const {
     applyType,
     companyName,
     id,
     industry,
+    jobList,
     location,
     maxExperience,
     maxSalary,
     minExperience,
     minSalary,
     remoteType,
+    setJobList,
     title,
     totalEmployee,
   } = props;
+
+  const deleteJob = async () => {
+    try {
+      const response = await jobsApi.destroy(id);
+      if (response.status === 200) {
+        setJobList([...jobList.filter((job) => job.id !== id)]);
+      }
+    } catch (e) {
+    }
+  };
+
   return (
     <div
-      className="flex border border-gray-lighter bg-white rounded-lg px-6 py-4 max-h-80"
+      className="flex border border-gray-lighter bg-white rounded-lg px-6 py-4 min-h-80"
       key={id}
     >
       <div>
         <img src={Netflix} className="h-12 w-12 rounded-md" alt="logo" />
       </div>
-      <div className="flex flex-col ml-2">
+      <div className="flex flex-col ml-2 w-11/12">
         <div className="text-xl text-dark">{title}</div>
         <div className="text-dark text-md">
           {companyName} - {industry}
@@ -55,6 +71,9 @@ const Card = (props) => {
             Apply Now
           </button>
         )}
+      </div>
+      <div className="flex bg-red- justify-end w-1/12 cursor-pointer">
+        <TrashIcon className="h-4 w-4 text-error" onClick={deleteJob} />
       </div>
     </div>
   );
