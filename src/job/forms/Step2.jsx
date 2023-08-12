@@ -5,7 +5,7 @@ import jobsApi from "../../apis/job";
 import { FORM_DATA } from "../../constants/job";
 import Loader from "../../components/Loader";
 
-const Form2 = (props) => {
+const Step2 = (props) => {
   const { formData, setFormData, setOpen, jobList, setJobList, setFormIndex } =
     props;
   const [isLoading, setIsLoading] = useState(false);
@@ -140,4 +140,4 @@ const Form2 = (props) => {
   );
 };
 
-export default Form2;
+export default Step2;
