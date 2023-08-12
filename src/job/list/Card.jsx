@@ -1,9 +1,10 @@
-import { TrashIcon } from "@heroicons/react/24/outline";
+import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid";
 import Netflix from "../../assets/Netflix.png";
 import jobsApi from "../../apis/job";
 import { formatExperienceRange, formatSalaryRange } from "../../formatters/job";
 import { useState } from "react";
 import Loader from "../../components/Loader";
+import JobEdit from "../Edit";
 
 const Card = (props) => {
   const {
@@ -11,6 +12,7 @@ const Card = (props) => {
     companyName,
     id,
     industry,
+    job,
     jobList,
     location,
     maxExperience,
@@ -24,6 +26,8 @@ const Card = (props) => {
   } = props;
 
   const [isLoading, setIsLoading] = useState(false);
+  const [formData, setFormData] = useState(job);
+  const [openEditModal, setOpenEditModal] = useState(false);
 
   const deleteJob = async () => {
     try {
@@ -33,6 +37,7 @@ const Card = (props) => {
         setJobList([...jobList.filter((job) => job.id !== id)]);
       }
     } catch (e) {
+      console.error("An error occurred:", e);
     } finally {
       setIsLoading(false);
     }
@@ -40,13 +45,16 @@ const Card = (props) => {
 
   return (
     <div
-      className={"flex border border-gray-lighter bg-white rounded-lg px-6 py-4 min-h-80 " + (isLoading && "opacity-50 cursor-wait")}
+      className={
+        "flex border border-gray-lighter bg-white rounded-lg px-6 py-4 min-h-80 " +
+        (isLoading && "opacity-50 cursor-wait")
+      }
       key={id}
     >
       <div>
         <img src={Netflix} className="h-12 w-12 rounded-md" alt="logo" />
       </div>
-      <div className="flex flex-col ml-2 w-11/12">
+      <div className="flex flex-col ml-2 w-5/6">
         <div className="text-xl text-dark">{title}</div>
         <div className="text-dark text-md">
           {companyName} - {industry}
@@ -90,13 +98,31 @@ const Card = (props) => {
           )}
         </div>
       </div>
-      <div className="flex bg-red- justify-end w-1/12 cursor-pointer">
+      <div className="flex justify-end w-1/6">
         {isLoading ? (
           <Loader classNames="border-error" />
         ) : (
-          <TrashIcon className="h-4 w-4 text-error" onClick={deleteJob} />
+          <div className="flex">
+            <PencilSquareIcon
+              className="h-5 w-5 cursor-pointer text-primary mr-4"
+              onClick={() => setOpenEditModal(true)}
+            />
+            <TrashIcon
+              className="h-5 w-5 cursor-pointer text-red-500"
+              onClick={deleteJob}
+            />
+          </div>
         )}
       </div>
+      <JobEdit
+        id={id}
+        formData={formData}
+        setFormData={setFormData}
+        open={openEditModal}
+        setOpen={setOpenEditModal}
+        jobList={jobList}
+        setJobList={setJobList}
+      />
     </div>
   );
 };
