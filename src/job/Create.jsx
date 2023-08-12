@@ -1,9 +1,9 @@
 import { useState } from "react";
-import Modal from "../../components/Modal";
-import { FORM_DATA } from "../../constants/job";
-import Step1 from "../forms/Step1";
-import Step2 from "../forms/Step2";
-import jobsApi from "../../apis/job";
+import Modal from "../components/Modal";
+import { FORM_DATA } from "../constants/job";
+import Step1 from "./forms/Step1";
+import Step2 from "./forms/Step2";
+import jobsApi from "../apis/job";
 
 const CreateJob = (props) => {
   const { open, setOpen, jobList, setJobList } = props;
@@ -25,11 +25,10 @@ const CreateJob = (props) => {
       const { data } = await jobsApi.create(formData);
       setJobList([...jobList, data]);
     } catch (e) {
+      console.error("An error occurred:", e);
     } finally {
-      setOpen(false);
-      setFormIndex(1);
-      setFormData(FORM_DATA);
       setIsLoading(false);
+      onClose();
     }
   };
 
