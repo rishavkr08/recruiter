@@ -3,9 +3,11 @@ import Modal from "../../components/Modal";
 import { FORM_DATA } from "../../constants/job";
 import Step1 from "../forms/Step1";
 import Step2 from "../forms/Step2";
+import jobsApi from "../../apis/job";
 
 const CreateJob = (props) => {
   const { open, setOpen, jobList, setJobList } = props;
+  const [isLoading, setIsLoading] = useState(false);
   const [formIndex, setFormIndex] = useState(1);
   const [formData, setFormData] = useState(FORM_DATA);
 
@@ -16,6 +18,21 @@ const CreateJob = (props) => {
       setFormIndex(1);
     }, 500);
   }
+
+  const saveData = async () => {
+    try {
+      setIsLoading(true);
+      const { data } = await jobsApi.create(formData);
+      setJobList([...jobList, data]);
+    } catch (e) {
+    } finally {
+      setOpen(false);
+      setFormIndex(1);
+      setFormData(FORM_DATA);
+      setIsLoading(false);
+    }
+  };
+
   return (
     <Modal open={open} onClose={onClose}>
       {formIndex === 1 ? (
@@ -26,12 +43,10 @@ const CreateJob = (props) => {
         />
       ) : (
         <Step2
-          setFormIndex={setFormIndex}
           formData={formData}
+          isLoading={isLoading}
           setFormData={setFormData}
-          setOpen={setOpen}
-          jobList={jobList}
-          setJobList={setJobList}
+          saveData={saveData}
         />
       )}
     </Modal>

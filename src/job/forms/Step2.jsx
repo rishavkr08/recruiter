@@ -1,14 +1,16 @@
 import React, { useCallback, useEffect, useState } from "react";
 import TextField from "../../components/TextField";
 import RadioGroup from "../../components/RadioGroup";
-import jobsApi from "../../apis/job";
-import { FORM_DATA } from "../../constants/job";
 import Loader from "../../components/Loader";
 
 const Step2 = (props) => {
-  const { formData, setFormData, setOpen, jobList, setJobList, setFormIndex } =
-    props;
-  const [isLoading, setIsLoading] = useState(false);
+  const {
+    formData,
+    isLoading,
+    setFormData,
+    saveData,
+  } = props;
+
   const [applyTypeOptions, setApplyTypeOptions] = useState([
     {
       label: "Quick apply",
@@ -35,20 +37,6 @@ const Step2 = (props) => {
   useEffect(() => {
     setData(applyTypeOptions.find((item) => item.checked)?.value, "applyType");
   }, [applyTypeOptions, setData]);
-
-  const saveData = async () => {
-    try {
-      setIsLoading(true);
-      const { data } = await jobsApi.create(formData);
-      setJobList([...jobList, data]);
-    } catch (e) {
-    } finally {
-      setOpen(false);
-      setFormIndex(1);
-      setFormData(FORM_DATA);
-      setIsLoading(false);
-    }
-  };
 
   return (
     <React.Fragment>

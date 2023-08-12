@@ -6,7 +6,13 @@ const List = (props) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 grid-flow-row w-full gap-6 m-6 md:mx-24">
       {jobList.map((job) => (
-        <Card {...job} key={job.id} jobList={jobList} setJobList={setJobList} />
+        <Card
+          {...job}
+          job={job}
+          key={job.id}
+          jobList={jobList}
+          setJobList={setJobList}
+        />
       ))}
     </div>
   );
